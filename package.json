@@ -1,0 +1,19 @@
+{
+  "name": "mp4",
+  "version": "1.0.0",
+  "description": "A modern, AI-powered privacy protection platform built with React, Node.js, and MongoDB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd frontend && npm start",
+    "dev": "concurrently \"cd backend && npm run server\" \"cd frontend && npm start\"",
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "build": "cd frontend && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
