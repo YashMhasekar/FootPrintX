@@ -6,12 +6,20 @@
   * {
     @apply box-border;
   }
+
+  html {
+    overflow-x: hidden;
+  }
   
   body {
     @apply font-sans antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
+    overflow-x: hidden;
+    /* Prevent iOS bounce from exposing overflow */
+    width: 100%;
+    max-width: 100vw;
   }
 }
 
@@ -203,4 +211,40 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+/* =============================================
+   MOBILE RESPONSIVE FIXES — Homepage
+   Added for mobile widths 320–430px
+   Desktop styles (>=1024px) are unchanged.
+   ============================================= */
+
+/* Prevent any element from breaking out of the viewport */
+img, video, iframe, embed, object, table {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile: ensure hero section background covers properly */
+@media (max-width: 768px) {
+  /* Stats section icon size already handled inline via responsive classes */
+
+  /* Ensure badge pills don't overflow on very small screens */
+  .inline-flex {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Hero section min-height adjustment for small phones */
+  .hero-section-mobile {
+    min-height: 100svh;
+  }
+}
+
+/* Mobile menu animation helper */
+@media (max-width: 1023px) {
+  /* Touch-friendly tap targets — already min-h-[44px] via Tailwind classes above */
+  nav button {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
