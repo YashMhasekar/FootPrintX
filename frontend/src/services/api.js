@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+// Use the environment variable when deployed (e.g. Netlify sets REACT_APP_API_URL).
+// Falls back to localhost:5000 so local development keeps working without any changes.
+const API_BASE_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000') + '/api';
 
 class ApiService {
   constructor() {
@@ -54,7 +56,7 @@ class ApiService {
       return this.handleResponse(response);
     } catch (error) {
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        throw new Error('Unable to connect to server. Please check if the backend server is running on port 5000.');
+        throw new Error('Unable to connect to server. Please check your connection or try again later.');
       }
       throw error;
     }
