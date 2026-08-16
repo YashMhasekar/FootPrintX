@@ -130,57 +130,57 @@ const BreachRadar = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100/50 backdrop-blur-sm"
+      className="bg-white rounded-2xl p-4 sm:p-8 shadow-xl border border-gray-100/50 backdrop-blur-sm"
       style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.95) 100%)' }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
+      <div className="flex items-start justify-between gap-3 mb-5 sm:mb-6">
+        <div className="min-w-0">
           <motion.h3
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-2xl font-bold text-gray-900 mb-1"
+            className="text-lg sm:text-2xl font-bold text-gray-900 mb-1 leading-tight"
           >
             Privacy & Security Radar
           </motion.h3>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center flex-wrap gap-x-2 gap-y-1">
             {isBusy ? (
               <div className="flex items-center space-x-2">
                 <Loader2 size={12} className="animate-spin text-blue-500" />
-                <span className="text-sm text-gray-500">{loading ? 'Loading report…' : 'Scanning…'}</span>
+                <span className="text-xs sm:text-sm text-gray-500">{loading ? 'Loading report…' : 'Scanning…'}</span>
               </div>
             ) : error ? (
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-gray-400 rounded-full" />
-                <span className="text-sm text-gray-500">Failed to load</span>
+                <div className="w-2 h-2 bg-gray-400 rounded-full flex-shrink-0" />
+                <span className="text-xs sm:text-sm text-gray-500">Failed to load</span>
               </div>
             ) : noReport ? (
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-gray-300 rounded-full" />
-                <span className="text-sm text-gray-400">No scan yet</span>
+                <div className="w-2 h-2 bg-gray-300 rounded-full flex-shrink-0" />
+                <span className="text-xs sm:text-sm text-gray-400">No scan yet</span>
               </div>
             ) : (
               <>
                 <div className="flex items-center space-x-2">
-                  <div className={`w-2.5 h-2.5 rounded-full animate-pulse ${activeCount > 0 ? 'bg-red-500' : 'bg-green-500'}`} />
-                  <span className={`text-sm font-semibold ${activeCount > 0 ? 'text-red-600' : 'text-green-600'}`}>
+                  <div className={`w-2.5 h-2.5 rounded-full animate-pulse flex-shrink-0 ${activeCount > 0 ? 'bg-red-500' : 'bg-green-500'}`} />
+                  <span className={`text-xs sm:text-sm font-semibold ${activeCount > 0 ? 'text-red-600' : 'text-green-600'}`}>
                     {activeCount > 0 ? `${activeCount} Active Alert${activeCount > 1 ? 's' : ''}` : 'All Clear'}
                   </span>
                 </div>
-                <div className="w-1 h-1 bg-gray-300 rounded-full" />
-                <span className="text-sm text-gray-500">Stored report</span>
+                <div className="w-1 h-1 bg-gray-300 rounded-full hidden sm:block" />
+                <span className="text-xs sm:text-sm text-gray-500 hidden sm:inline">Stored report</span>
               </>
             )}
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 flex-shrink-0">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={runScan}
             disabled={isBusy}
-            className="p-2 rounded-xl border border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-300 transition-all disabled:opacity-40"
+            className="p-2 rounded-xl border border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-300 transition-all disabled:opacity-40 min-w-[36px] min-h-[36px] flex items-center justify-center"
             title="Run fresh scan"
           >
             <RefreshCw size={15} className={scanning ? 'animate-spin' : ''} />
@@ -189,9 +189,9 @@ const BreachRadar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/breach-radar')}
-            className="flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+            className="flex items-center space-x-1.5 sm:space-x-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-3 sm:px-4 py-2 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 text-sm min-h-[36px]"
           >
-            <Eye size={15} />
+            <Eye size={14} />
             <span>View All</span>
           </motion.button>
         </div>
@@ -227,9 +227,9 @@ const BreachRadar = () => {
 
       {/* Score + summary row */}
       {(isBusy || data) && !noReport && (
-        <div className="flex items-center gap-6 mb-6 p-4 bg-gray-50 rounded-2xl">
+        <div className="flex items-center gap-3 sm:gap-6 mb-5 sm:mb-6 p-3 sm:p-4 bg-gray-50 rounded-2xl">
           {isBusy ? (
-            <div className="w-20 h-20 rounded-full bg-gray-200 animate-pulse flex-shrink-0" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gray-200 animate-pulse flex-shrink-0" />
           ) : (
             <ScoreArc score={data?.score ?? 0} />
           )}
@@ -242,15 +242,15 @@ const BreachRadar = () => {
               </div>
             ) : (
               <>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className={`text-lg font-bold ${
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className={`text-base sm:text-lg font-bold ${
                     data?.score >= 85 ? 'text-green-600' :
                     data?.score >= 70 ? 'text-blue-600' :
                     data?.score >= 50 ? 'text-yellow-600' : 'text-red-600'
                   }`}>{data?.level}</span>
-                  {data?.score >= 85 && <CheckCircle size={16} className="text-green-500" />}
+                  {data?.score >= 85 && <CheckCircle size={15} className="text-green-500 flex-shrink-0" />}
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">{data?.summary}</p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed break-words">{data?.summary}</p>
               </>
             )}
           </div>
@@ -296,12 +296,12 @@ const BreachRadar = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.08 }}
-                className={`p-4 rounded-xl border ${meta.bg} ${meta.border} hover:shadow-md transition-all duration-200 group`}
+                className={`p-3 sm:p-4 rounded-xl border ${meta.bg} ${meta.border} hover:shadow-md transition-all duration-200 group`}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
+                <div className="flex items-start justify-between gap-2 sm:gap-3">
+                  <div className="flex items-start gap-2 sm:gap-3 min-w-0">
                     <motion.div
-                      className={`p-2.5 rounded-xl ${meta.bg} border ${meta.border} shadow-sm group-hover:shadow-md transition-all`}
+                      className={`p-2 sm:p-2.5 rounded-xl ${meta.bg} border ${meta.border} shadow-sm group-hover:shadow-md transition-all flex-shrink-0`}
                       whileHover={{ scale: 1.1, rotate: 5 }}
                     >
                       <span className={meta.color}>
@@ -309,13 +309,13 @@ const BreachRadar = () => {
                       </span>
                     </motion.div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-0.5">
+                      <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
                         <h4 className="font-bold text-gray-900 text-sm">{alert.title}</h4>
                         <span className={`text-xs px-1.5 py-0.5 rounded-full font-semibold capitalize ${meta.bg} ${meta.color} border ${meta.border}`}>
                           {alert.severity}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-600 line-clamp-2">{alert.description}</p>
+                      <p className="text-xs text-gray-600 line-clamp-2 break-words">{alert.description}</p>
                     </div>
                   </div>
                 </div>
@@ -331,16 +331,16 @@ const BreachRadar = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mt-5 grid grid-cols-3 gap-3"
+          className="mt-4 sm:mt-5 grid grid-cols-3 gap-2 sm:gap-3"
         >
           {[
-            { label: 'Public Files',    value: data.statistics?.publicFiles ?? 0,      color: 'text-red-600'    },
-            { label: 'Shared Files',    value: data.statistics?.sharedFiles ?? 0,      color: 'text-orange-600' },
-            { label: 'Dormant Accounts', value: data.statistics?.dormantAccounts ?? 0, color: 'text-yellow-600' },
+            { label: 'Public Files',     value: data.statistics?.publicFiles ?? 0,      color: 'text-red-600'    },
+            { label: 'Shared Files',     value: data.statistics?.sharedFiles ?? 0,      color: 'text-orange-600' },
+            { label: 'Dormant Accounts', value: data.statistics?.dormantAccounts ?? 0,  color: 'text-yellow-600' },
           ].map(({ label, value, color }) => (
-            <div key={label} className="bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
-              <p className={`text-xl font-black ${color}`}>{value}</p>
-              <p className="text-xs text-gray-500 font-medium mt-0.5">{label}</p>
+            <div key={label} className="bg-gray-50 rounded-xl p-2.5 sm:p-3 text-center border border-gray-100">
+              <p className={`text-lg sm:text-xl font-black ${color}`}>{value}</p>
+              <p className="text-xs text-gray-500 font-medium mt-0.5 leading-tight">{label}</p>
             </div>
           ))}
         </motion.div>

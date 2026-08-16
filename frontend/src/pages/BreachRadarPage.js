@@ -138,13 +138,13 @@ function StatCard({ label, value, color, icon: Icon }) {
   return (
     <motion.div
       whileHover={{ y: -2 }}
-      className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 text-center"
+      className="bg-white rounded-2xl p-3 sm:p-5 shadow-sm border border-gray-100 text-center"
     >
-      <div className={`w-9 h-9 rounded-xl flex items-center justify-center mx-auto mb-2 ${color.replace('text-', 'bg-').replace('600','50')}`}>
-        <Icon size={16} className={color} />
+      <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center mx-auto mb-1.5 sm:mb-2 ${color.replace('text-', 'bg-').replace('600','50')}`}>
+        <Icon size={15} className={color} />
       </div>
-      <p className={`text-2xl font-black ${color}`}>{value}</p>
-      <p className="text-xs text-gray-500 font-medium mt-0.5">{label}</p>
+      <p className={`text-xl sm:text-2xl font-black ${color}`}>{value}</p>
+      <p className="text-xs text-gray-500 font-medium mt-0.5 leading-tight">{label}</p>
     </motion.div>
   );
 }
@@ -218,30 +218,30 @@ export default function BreachRadarPage() {
   const stats = data?.statistics;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-indigo-50/20 px-6 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-indigo-50/20 px-3 sm:px-6 py-6 sm:py-8">
       <div className="max-w-7xl mx-auto">
 
         {/* ── Header ──────────────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8 flex-wrap gap-4"
+          className="flex items-center justify-between mb-6 sm:mb-8 flex-wrap gap-3"
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
             <button
               onClick={() => navigate('/dashboard')}
-              className="flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm font-medium transition-colors"
+              className="flex items-center gap-1.5 text-gray-500 hover:text-gray-800 text-sm font-medium transition-colors flex-shrink-0"
             >
-              <ArrowLeft size={18} /> Back
+              <ArrowLeft size={16} /> <span className="hidden xs:inline">Back</span>
             </button>
-            <div className="h-7 w-px bg-gray-200" />
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-                <Shield className="text-white" size={18} />
+            <div className="h-6 w-px bg-gray-200 flex-shrink-0" />
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+                <Shield className="text-white" size={16} />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Privacy & Security Radar</h1>
-                <p className="text-xs text-gray-400">Powered by your Drive, Gmail & Website data</p>
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-xl font-bold text-gray-900 leading-tight">Privacy & Security Radar</h1>
+                <p className="text-xs text-gray-400 hidden sm:block">Powered by your Drive, Gmail & Website data</p>
               </div>
             </div>
           </div>
@@ -249,7 +249,7 @@ export default function BreachRadarPage() {
           <button
             onClick={load}
             disabled={isBusy}
-            className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-md transition-all"
+            className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold shadow-md transition-all flex-shrink-0"
           >
             {scanning ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
             {scanning ? 'Scanning…' : loading ? 'Loading…' : 'Re-Scan'}
@@ -272,8 +272,8 @@ export default function BreachRadarPage() {
         {isBusy ? (
           /* ── Skeleton ───────────────────────────────────────────────────── */
           <div className="space-y-6">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {[...Array(8)].map((_, i) => <SkeletonBlock key={i} h="h-24" />)}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-3 sm:gap-4">
+              {[...Array(8)].map((_, i) => <SkeletonBlock key={i} h="h-20 sm:h-24" />)}
             </div>
             <div className="grid lg:grid-cols-3 gap-6">
               <SkeletonBlock h="h-72" />
@@ -309,18 +309,18 @@ export default function BreachRadarPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
             {/* ── Hero row: score + stats ──────────────────────────────────── */}
-            <div className="grid lg:grid-cols-3 gap-6 mb-8">
+            <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
 
               {/* Score card */}
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center justify-center py-8 px-6">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center justify-center py-6 sm:py-8 px-4 sm:px-6">
                 <ScoreGauge score={data?.score ?? 0} level={data?.level ?? ''} />
-                <p className="text-sm text-gray-500 mt-4 text-center leading-relaxed px-2">
+                <p className="text-sm text-gray-500 mt-3 sm:mt-4 text-center leading-relaxed px-2">
                   {data?.summary}
                 </p>
               </div>
 
               {/* Stats grid */}
-              <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-3 content-start">
+              <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 content-start">
                 <StatCard label="Total Files"      value={stats?.totalFiles ?? 0}       color="text-gray-600"    icon={FileText}    />
                 <StatCard label="Shared Files"     value={stats?.sharedFiles ?? 0}      color="text-orange-600"  icon={Link}        />
                 <StatCard label="Public Files"     value={stats?.publicFiles ?? 0}      color="text-red-600"     icon={Globe}       />
@@ -333,13 +333,13 @@ export default function BreachRadarPage() {
             </div>
 
             {/* ── Filter bar ──────────────────────────────────────────────── */}
-            <div className="flex items-center gap-2 mb-5 flex-wrap">
+            <div className="flex items-center gap-2 mb-4 sm:mb-5 flex-wrap">
               <Filter size={14} className="text-gray-400 flex-shrink-0" />
               {FILTER_OPTIONS.map((opt) => (
                 <button
                   key={opt}
                   onClick={() => setFilter(opt)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+                  className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${
                     filter === opt
                       ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-transparent shadow-md'
                       : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
@@ -347,19 +347,19 @@ export default function BreachRadarPage() {
                 >
                   {opt}
                   {opt !== 'All' && opt !== 'Safe' && data?.alerts && (
-                    <span className="ml-1.5 opacity-70">
+                    <span className="ml-1 opacity-70">
                       ({data.alerts.filter((a) => a.severity.toLowerCase() === opt.toLowerCase()).length})
                     </span>
                   )}
                   {opt === 'All' && data?.alerts && (
-                    <span className="ml-1.5 opacity-70">({data.alerts.length})</span>
+                    <span className="ml-1 opacity-70">({data.alerts.length})</span>
                   )}
                 </button>
               ))}
             </div>
 
             {/* ── Alerts timeline + Recommendations ────────────────────── */}
-            <div className="grid lg:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-3 gap-4 sm:gap-6">
 
               {/* Alerts timeline */}
               <div className="lg:col-span-2 space-y-3">
@@ -402,9 +402,9 @@ export default function BreachRadarPage() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 20 }}
                         transition={{ delay: index * 0.05 }}
-                        className={`p-5 rounded-2xl border ${meta.bg} ${meta.border} hover:shadow-md transition-all duration-200 group`}
+                        className={`p-4 sm:p-5 rounded-2xl border ${meta.bg} ${meta.border} hover:shadow-md transition-all duration-200 group`}
                       >
-                        <div className="flex items-start gap-4">
+                        <div className="flex items-start gap-3">
                           <AlertIconBox icon={alert.icon} severity={alert.severity} />
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -413,10 +413,10 @@ export default function BreachRadarPage() {
                                 {meta.label}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-700 mb-2">{alert.description}</p>
+                            <p className="text-sm text-gray-700 mb-2 break-words">{alert.description}</p>
                             <div className="flex items-start gap-1.5">
                               <div className={`w-2 h-2 rounded-full mt-1 flex-shrink-0 ${meta.dot}`} />
-                              <p className="text-xs text-gray-500 italic">{alert.recommendation}</p>
+                              <p className="text-xs text-gray-500 italic break-words">{alert.recommendation}</p>
                             </div>
                           </div>
                         </div>
@@ -468,7 +468,7 @@ export default function BreachRadarPage() {
                 </div>
 
                 {/* Quick-action buttons */}
-                <div className="mt-5 space-y-2">
+                <div className="mt-4 sm:mt-5 space-y-2">
                   {[
                     { label: 'Drive Classifier',  route: '/drive-classifier',  color: 'from-purple-500 to-violet-600'  },
                     { label: 'Drive Cleanup',      route: '/drive-cleanup',     color: 'from-yellow-500 to-amber-600'   },
@@ -479,7 +479,7 @@ export default function BreachRadarPage() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => navigate(route)}
-                      className={`w-full flex items-center justify-between bg-gradient-to-r ${color} text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg transition-all`}
+                      className={`w-full flex items-center justify-between bg-gradient-to-r ${color} text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg transition-all min-h-[44px]`}
                     >
                       <span>{label}</span>
                       <ExternalLink size={14} />

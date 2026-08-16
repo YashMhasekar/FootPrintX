@@ -130,9 +130,9 @@ function ScoreRing({ score, label, hasData }) {
   const shadow = score >= 90 ? '0 0 40px rgba(16,185,129,0.3)' : score >= 70 ? '0 0 40px rgba(59,130,246,0.3)' : '0 0 40px rgba(239,68,68,0.3)';
 
   return (
-    <div className="flex flex-col items-center justify-center py-8">
-      <div className="relative w-44 h-44" style={{ filter: `drop-shadow(${shadow})` }}>
-        <svg className="w-44 h-44 -rotate-90" viewBox="0 0 140 140">
+    <div className="flex flex-col items-center justify-center py-6 sm:py-8">
+      <div className="relative w-36 h-36 sm:w-44 sm:h-44" style={{ filter: `drop-shadow(${shadow})` }}>
+        <svg className="w-36 h-36 sm:w-44 sm:h-44 -rotate-90" viewBox="0 0 140 140">
           <circle cx="70" cy="70" r={r} stroke="#E5E7EB" strokeWidth="12" fill="none"/>
           <motion.circle cx="70" cy="70" r={r} stroke={color} strokeWidth="12" fill="none"
             strokeLinecap="round"
@@ -143,7 +143,7 @@ function ScoreRing({ score, label, hasData }) {
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <motion.span initial={{ opacity:0, scale:0.5 }} animate={{ opacity:1, scale:1 }} transition={{ delay:0.5, type:'spring' }}
-            className="text-5xl font-black text-gray-900">
+            className="text-4xl sm:text-5xl font-black text-gray-900">
             {hasData ? score : '—'}
           </motion.span>
           <span className="text-xs text-gray-400 font-medium">/100</span>
@@ -175,11 +175,11 @@ function DimCard({ label, score, icon:Icon, hasData }) {
   const bgCls  = score >= 70 ? 'bg-emerald-50' : score >= 50 ? 'bg-amber-50' : 'bg-red-50';
   const txtCls = score >= 70 ? 'text-emerald-700' : score >= 50 ? 'text-amber-700' : 'text-red-700';
   return (
-    <motion.div whileHover={{ y:-3 }} className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100 text-center">
-      <div className={`w-10 h-10 ${bgCls} rounded-xl flex items-center justify-center mx-auto mb-3`}>
-        <Icon size={18} className={txtCls}/>
+    <motion.div whileHover={{ y:-3 }} className="bg-white rounded-2xl p-3 sm:p-5 shadow-lg border border-gray-100 text-center">
+      <div className={`w-9 h-9 sm:w-10 sm:h-10 ${bgCls} rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3`}>
+        <Icon size={16} className={txtCls}/>
       </div>
-      <p className={`text-3xl font-black ${txtCls}`}>{hasData ? (hasData ? <AnimCounter value={score}/> : score) : '—'}</p>
+      <p className={`text-2xl sm:text-3xl font-black ${txtCls}`}>{hasData ? (hasData ? <AnimCounter value={score}/> : score) : '—'}</p>
       <p className="text-xs text-gray-500 font-medium mt-1">{label}</p>
       <div className="mt-2 h-1.5 bg-gray-100 rounded-full overflow-hidden">
         <motion.div initial={{ width:0 }} animate={{ width:`${hasData ? score : 0}%` }} transition={{ duration:1, delay:0.3 }}
@@ -198,14 +198,14 @@ function FactorCard({ factor, navigate }) {
   const s = styles[factor.severity] || styles.low;
   const Icon = s.icon;
   return (
-    <div className={`rounded-xl border p-4 flex items-start justify-between gap-4 ${s.cls}`}>
+    <div className={`rounded-xl border p-3 sm:p-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 ${s.cls}`}>
       <div className="flex items-start gap-3 flex-1 min-w-0">
         <Icon size={16} className={`mt-0.5 flex-shrink-0 ${s.iconCls}`}/>
-        <p className="text-sm text-gray-800 leading-relaxed">{factor.text}</p>
+        <p className="text-sm text-gray-800 leading-relaxed break-words">{factor.text}</p>
       </div>
       {factor.route && factor.route !== '/dashboard' && (
         <button onClick={() => navigate(factor.route)}
-          className="flex items-center gap-1 text-xs font-semibold text-white bg-gray-800 hover:bg-gray-900 px-3 py-1.5 rounded-lg transition-colors flex-shrink-0">
+          className="flex items-center gap-1 text-xs font-semibold text-white bg-gray-800 hover:bg-gray-900 px-3 py-1.5 rounded-lg transition-colors flex-shrink-0 self-start min-h-[32px]">
           Fix <ExternalLink size={10}/>
         </button>
       )}
@@ -329,27 +329,27 @@ export default function DigitalRiskScore() {
     : <TrendingDown size={16} className="text-red-500"/>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-indigo-50/20 to-purple-50/20 px-6 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-indigo-50/20 to-purple-50/20 px-3 sm:px-6 py-6 sm:py-8">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <motion.div initial={{ opacity:0, y:-16 }} animate={{ opacity:1, y:0 }} className="flex items-center justify-between mb-8 flex-wrap gap-4">
-          <div className="flex items-center gap-4">
-            <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm font-medium transition-colors">
-              <ArrowLeft size={18}/> Back
+        <motion.div initial={{ opacity:0, y:-16 }} animate={{ opacity:1, y:0 }} className="flex items-center justify-between mb-6 sm:mb-8 flex-wrap gap-3">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+            <button onClick={() => navigate('/dashboard')} className="flex items-center gap-1.5 text-gray-500 hover:text-gray-800 text-sm font-medium transition-colors flex-shrink-0">
+              <ArrowLeft size={16}/> <span className="hidden xs:inline">Back</span>
             </button>
-            <div className="h-7 w-px bg-gray-200"/>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-                <Shield className="text-white" size={18}/>
+            <div className="h-6 w-px bg-gray-200 flex-shrink-0"/>
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+                <Shield className="text-white" size={16}/>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Digital Risk Score</h1>
-                <p className="text-xs text-gray-400">Loaded from stored reports</p>
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-xl font-bold text-gray-900 leading-tight">Digital Risk Score</h1>
+                <p className="text-xs text-gray-400 hidden sm:block">Loaded from stored reports</p>
               </div>
             </div>
           </div>
-          <button onClick={runFullRescan} disabled={loading} className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-md transition-all">
+          <button onClick={runFullRescan} disabled={loading} className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold shadow-md transition-all flex-shrink-0">
             {loading ? <Loader2 size={14} className="animate-spin"/> : <RefreshCw size={14}/>}
             {loading ? 'Analysing…' : 'Rescan'}
           </button>
@@ -366,27 +366,27 @@ export default function DigitalRiskScore() {
 
         {loading ? (
           <div className="space-y-6">
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">{[...Array(5)].map((_,i)=><SkeletonBlock key={i}/>)}</div>
-            <div className="grid lg:grid-cols-2 gap-6">{[...Array(2)].map((_,i)=><SkeletonBlock key={i} h="h-72"/>)}</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">{[...Array(5)].map((_,i)=><SkeletonBlock key={i}/>)}</div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">{[...Array(2)].map((_,i)=><SkeletonBlock key={i} h="h-72"/>)}</div>
             <div className="space-y-3">{[...Array(4)].map((_,i)=><SkeletonBlock key={i} h="h-16"/>)}</div>
           </div>
         ) : (
           <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }}>
 
             {/* Top: score ring + dimension cards */}
-            <div className="grid lg:grid-cols-3 gap-6 mb-8">
+            <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
               {/* Score ring panel */}
               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center">
-                <p className="text-sm font-bold text-gray-600 pt-6">Digital Risk Score</p>
+                <p className="text-sm font-bold text-gray-600 pt-5 sm:pt-6">Digital Risk Score</p>
                 <ScoreRing score={overall} label={label} hasData={!!anyData}/>
-                <div className="flex items-center gap-2 pb-6">
+                <div className="flex items-center gap-2 pb-5 sm:pb-6 px-4">
                   {trendIcon}
-                  <span className="text-xs text-gray-500">{anyData ? `${label} — based on all modules` : NA}</span>
+                  <span className="text-xs text-gray-500 text-center">{anyData ? `${label} — based on all modules` : NA}</span>
                 </div>
               </div>
 
               {/* Dimension cards */}
-              <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3 content-start">
+              <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 content-start">
                 {Object.entries(dims).map(([key, val]) => {
                   const meta = DIM_META[key] || { icon: BarChart3 };
                   return <DimCard key={key} label={key} score={val} icon={meta.icon} hasData={!!anyData}/>;
@@ -395,7 +395,7 @@ export default function DigitalRiskScore() {
             </div>
 
             {/* Stats tiles */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
               {[
                 { icon:Mail,        label:'Emails Scanned',    value: totalEmails,     color:'text-green-600',  bg:'bg-green-50'  },
                 { icon:ShieldAlert, label:'Spam Detected',     value: spamCount,       color:'text-red-600',    bg:'bg-red-50'    },
@@ -403,61 +403,65 @@ export default function DigitalRiskScore() {
                 { icon:Users,       label:'Subscriptions',     value: subsCount,       color:'text-violet-600', bg:'bg-violet-50' },
                 { icon:Globe,       label:'Inactive Sites',    value: inactiveSites,   color:'text-indigo-600', bg:'bg-indigo-50' },
               ].map(({ icon:Icon, label:lbl, value, color, bg }) => (
-                <motion.div key={lbl} whileHover={{ y:-3 }} className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
-                  <div className={`w-9 h-9 ${bg} rounded-xl flex items-center justify-center mb-3`}>
-                    <Icon size={16} className={color}/>
+                <motion.div key={lbl} whileHover={{ y:-3 }} className="bg-white rounded-2xl p-3 sm:p-4 shadow-lg border border-gray-100">
+                  <div className={`w-8 h-8 sm:w-9 sm:h-9 ${bg} rounded-xl flex items-center justify-center mb-2 sm:mb-3`}>
+                    <Icon size={15} className={color}/>
                   </div>
-                  <p className={`text-2xl font-bold ${color}`}>{anyData ? <AnimCounter value={value}/> : '—'}</p>
-                  <p className="text-xs text-gray-500 font-medium mt-0.5">{lbl}</p>
+                  <p className={`text-xl sm:text-2xl font-bold ${color}`}>{anyData ? <AnimCounter value={value}/> : '—'}</p>
+                  <p className="text-xs text-gray-500 font-medium mt-0.5 leading-tight">{lbl}</p>
                 </motion.div>
               ))}
             </div>
 
             {/* Charts */}
-            <div className="grid lg:grid-cols-2 gap-6 mb-8">
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                <div className="flex items-center gap-2 mb-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 overflow-hidden">
+                <div className="flex items-center gap-2 mb-3 sm:mb-4">
                   <Brain size={15} className="text-indigo-500"/>
-                  <h2 className="text-base font-bold text-gray-800">Risk Dimension Radar</h2>
+                  <h2 className="text-sm sm:text-base font-bold text-gray-800">Risk Dimension Radar</h2>
                 </div>
                 {anyData ? (
-                  <ResponsiveContainer width="100%" height={260}>
-                    <RadarChart data={radarData}>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <RadarChart data={radarData} margin={{ top: 10, right: 20, bottom: 10, left: 20 }}>
                       <PolarGrid stroke="#e5e7eb"/>
-                      <PolarAngleAxis dataKey="subject" tick={{ fontSize:11, fill:'#6B7280' }}/>
-                      <PolarRadiusAxis angle={30} domain={[0,100]} tick={{ fontSize:9 }}/>
+                      <PolarAngleAxis
+                        dataKey="subject"
+                        tick={{ fontSize: 10, fill: '#6B7280' }}
+                        tickLine={false}
+                      />
+                      <PolarRadiusAxis angle={30} domain={[0,100]} tick={{ fontSize:8 }} tickCount={4}/>
                       <Radar name="Score" dataKey="value" stroke="#6366F1" fill="#6366F1" fillOpacity={0.2} strokeWidth={2}/>
                       <Tooltip content={<RadarTip/>}/>
                     </RadarChart>
                   </ResponsiveContainer>
-                ) : <p className="text-sm text-gray-400 py-20 text-center">{NA}</p>}
+                ) : <p className="text-sm text-gray-400 py-16 text-center">{NA}</p>}
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                <div className="flex items-center gap-2 mb-4">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 overflow-hidden">
+                <div className="flex items-center gap-2 mb-3 sm:mb-4">
                   <BarChart3 size={15} className="text-emerald-500"/>
-                  <h2 className="text-base font-bold text-gray-800">Score Breakdown</h2>
+                  <h2 className="text-sm sm:text-base font-bold text-gray-800">Score Breakdown</h2>
                 </div>
                 {anyData ? (
-                  <ResponsiveContainer width="100%" height={260}>
-                    <BarChart data={barData} margin={{ top:5, right:5, left:-20, bottom:0 }}>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={barData} margin={{ top:5, right:5, left:-24, bottom:0 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0"/>
-                      <XAxis dataKey="name" tick={{ fontSize:11 }}/>
-                      <YAxis domain={[0,100]} tick={{ fontSize:10 }}/>
+                      <XAxis dataKey="name" tick={{ fontSize:10 }} interval={0}/>
+                      <YAxis domain={[0,100]} tick={{ fontSize:9 }} width={36}/>
                       <Tooltip content={<BarTip/>}/>
                       <Bar dataKey="value" radius={[6,6,0,0]}>
                         {barData.map(d => <Cell key={d.name} fill={d.fill}/>)}
                       </Bar>
                     </BarChart>
                   </ResponsiveContainer>
-                ) : <p className="text-sm text-gray-400 py-20 text-center">{NA}</p>}
+                ) : <p className="text-sm text-gray-400 py-16 text-center">{NA}</p>}
               </div>
             </div>
 
             {/* Risk factors */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 mb-8">
-              <div className="flex items-center gap-2 mb-5">
-                <Shield size={16} className="text-indigo-500"/>
-                <h2 className="text-base font-bold text-gray-800">Risk Factors &amp; Improvements</h2>
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 mb-6 sm:mb-8">
+              <div className="flex items-center gap-2 mb-4 sm:mb-5 flex-wrap">
+                <Shield size={16} className="text-indigo-500 flex-shrink-0"/>
+                <h2 className="text-sm sm:text-base font-bold text-gray-800">Risk Factors &amp; Improvements</h2>
                 <span className="ml-auto text-xs text-gray-400">From your live scan data</span>
               </div>
               {anyData && factors.length > 0 ? (
@@ -468,20 +472,20 @@ export default function DigitalRiskScore() {
             </div>
 
             {/* Quick action buttons */}
-            <div className="grid sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               <motion.button whileHover={{ scale:1.02 }} whileTap={{ scale:0.98 }} onClick={() => navigate('/auto-cleanup')}
-                className="flex items-center justify-between bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all">
-                <div className="flex items-center gap-3"><CheckCircle2 size={20}/><span>Run Auto Cleanup</span></div>
+                className="flex items-center justify-between bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all min-h-[52px]">
+                <div className="flex items-center gap-3"><CheckCircle2 size={18}/><span>Run Auto Cleanup</span></div>
                 <ExternalLink size={16}/>
               </motion.button>
               <motion.button whileHover={{ scale:1.02 }} whileTap={{ scale:0.98 }} onClick={() => navigate('/email-manager')}
-                className="flex items-center justify-between bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all">
-                <div className="flex items-center gap-3"><Mail size={20}/><span>Optimize Inbox</span></div>
+                className="flex items-center justify-between bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all min-h-[52px]">
+                <div className="flex items-center gap-3"><Mail size={18}/><span>Optimize Inbox</span></div>
                 <ExternalLink size={16}/>
               </motion.button>
               <motion.button whileHover={{ scale:1.02 }} whileTap={{ scale:0.98 }} onClick={() => navigate('/drive-cleanup')}
-                className="flex items-center justify-between bg-gradient-to-r from-yellow-500 to-amber-600 text-white px-6 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all">
-                <div className="flex items-center gap-3"><HardDrive size={20}/><span>Optimize Storage</span></div>
+                className="flex items-center justify-between bg-gradient-to-r from-yellow-500 to-amber-600 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all min-h-[52px]">
+                <div className="flex items-center gap-3"><HardDrive size={18}/><span>Optimize Storage</span></div>
                 <ExternalLink size={16}/>
               </motion.button>
             </div>
