@@ -23,7 +23,8 @@ import {
   User,
   LogOut,
   Menu,
-  X
+  X,
+  Layers
 } from 'lucide-react';
 import AuthModal from './AuthModal';
 
@@ -88,22 +89,28 @@ const Homepage = ({ onLogin, isLoggedIn, user }) => {
 
   const testimonials = [
     {
-      quote: "FootprintX helped me secure my digital life in just minutes. The insights were eye-opening.",
+      quote: "FootprintX gave me a clear picture of my entire digital footprint. The risk scoring is accurate and actionable.",
       author: "Sanika Mane",
       role: "Privacy Advocate",
       avatar: "SM"
     },
     {
-      quote: "Finally found a privacy tool that actually works. Clean interface and powerful protection.",
+      quote: "A genuinely useful security tool. Clean interface, no noise — just the insights that matter.",
       author: "Shraddha Patil",
       role: "Security Consultant",
       avatar: "SP"
     },
     {
-      quote: "Best privacy scanner I've used. Discovered breaches I didn't even know about.",
+      quote: "Discovered stale accounts and exposed credentials I had completely forgotten about. Eye-opening.",
       author: "Sayali Khatkar",
-      role: "Tech Professional",
+      role: "Cybersecurity Analyst",
       avatar: "SK"
+    },
+    {
+      quote: "Exactly what the privacy space needed — intelligent automation that respects your data and your time.",
+      author: "Yash Mhasekar",
+      role: "Security Engineer",
+      avatar: "YM"
     }
   ];
 
@@ -261,10 +268,11 @@ const Homepage = ({ onLogin, isLoggedIn, user }) => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200 px-6 py-3 rounded-xl hover:bg-blue-50 border border-gray-200 hover:border-blue-200"
+                    onClick={() => navigate('/demo')}
+                    className="flex items-center space-x-2 text-indigo-600 hover:text-indigo-700 font-semibold transition-colors duration-200 px-6 py-3 rounded-xl hover:bg-indigo-50 border border-indigo-200 hover:border-indigo-300"
                   >
-                    <Play size={16} />
-                    <span>Live Demo</span>
+                    <Layers size={16} />
+                    <span>Try Demo</span>
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.02, boxShadow: "0 8px 25px rgba(59, 130, 246, 0.25)" }}
@@ -383,6 +391,13 @@ const Homepage = ({ onLogin, isLoggedIn, user }) => {
                     </>
                   ) : (
                     <div className="space-y-2">
+                      <button
+                        onClick={() => { navigate('/demo'); setIsMobileMenuOpen(false); }}
+                        className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-3 rounded-xl font-semibold shadow-md min-h-[44px]"
+                      >
+                        <Layers size={18} />
+                        <span>Try Interactive Demo</span>
+                      </button>
                       <button
                         onClick={() => { handleAuthModalOpen(); setIsMobileMenuOpen(false); }}
                         className="w-full flex items-center justify-center space-x-2 bg-white text-gray-700 border-2 border-gray-200 px-4 py-3 rounded-xl font-semibold shadow-sm hover:border-blue-300 hover:bg-blue-50 transition-colors min-h-[44px]"
@@ -572,10 +587,11 @@ const Homepage = ({ onLogin, isLoggedIn, user }) => {
                     backgroundColor: "rgba(255, 255, 255, 0.2)",
                     borderColor: "rgba(255, 255, 255, 0.5)"
                   }}
+                  onClick={() => navigate('/demo')}
                   className="border-2 border-white/40 text-white hover:text-white px-6 sm:px-12 py-4 sm:py-5 rounded-2xl font-semibold text-lg sm:text-xl transition-all duration-300 flex items-center justify-center space-x-4 backdrop-blur-md bg-white/10 shadow-xl w-full sm:min-w-[280px] sm:w-auto hover:bg-white/20"
                 >
-                  <Play size={24} className="text-white" />
-                  <span>Watch Demo</span>
+                  <Layers size={24} className="text-white" />
+                  <span>Try Interactive Demo</span>
                 </motion.button>
               </>
             )}
@@ -910,67 +926,37 @@ const Homepage = ({ onLogin, isLoggedIn, user }) => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-5 sm:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.author}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                whileHover={{ 
-                  y: -15,
-                  scale: 1.02,
-                  boxShadow: "0 30px 60px rgba(99, 102, 241, 0.2), 0 20px 40px rgba(59, 130, 246, 0.15)"
-                }}
-                className="relative bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/20 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-blue-200/40 shadow-2xl overflow-hidden group"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -4, boxShadow: "0 16px 40px rgba(99,102,241,0.12)" }}
+                className="relative bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm overflow-hidden flex flex-col"
               >
-                {/* Subtle Background Pattern */}
-                <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2359130f6' fill-opacity='0.1'%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
-                    backgroundSize: '20px 20px'
-                  }} />
-                </div>
-                
-                {/* Accent Border */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400"></div>
-                
-                {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-indigo-50/0 group-hover:from-blue-50/30 group-hover:to-indigo-50/20 transition-all duration-500"></div>
-                
-                <div className="relative z-10">
-                  <motion.div
-                    className="mb-8"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.3 + 0.5 }}
-                  >
-                    <div className="flex items-start space-x-3 mb-6">
-                      <div className="text-blue-400 text-5xl leading-none font-serif">"</div>
-                      <p className="text-gray-700 text-lg leading-relaxed font-medium pt-2">
-                        {testimonial.quote}
-                      </p>
-                      <div className="text-blue-400 text-5xl leading-none self-end font-serif">"</div>
-                    </div>
-                  </motion.div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <motion.div 
-                      className="w-14 h-14 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center font-bold text-white text-lg shadow-xl"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      {testimonial.avatar}
-                    </motion.div>
-                    <div>
-                      <div className="font-bold text-gray-800 text-lg mb-1">{testimonial.author}</div>
-                      <div className="text-indigo-600 font-semibold text-base bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{testimonial.role}</div>
-                    </div>
+                {/* Thin top accent */}
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500" />
+
+                {/* Quote mark */}
+                <div className="text-indigo-200 text-6xl leading-none font-serif select-none mb-3">"</div>
+
+                {/* Quote text */}
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed flex-1 mb-6">
+                  {testimonial.quote}
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
+                    {testimonial.avatar}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">{testimonial.author}</p>
+                    <p className="text-xs text-indigo-600 font-medium">{testimonial.role}</p>
                   </div>
                 </div>
-                
-                {/* Subtle Glow Effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-300/20 via-indigo-300/20 to-purple-300/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
               </motion.div>
             ))}
           </div>

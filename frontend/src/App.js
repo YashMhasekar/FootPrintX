@@ -22,6 +22,17 @@ import AIRiskPredictor from './pages/AIRiskPredictor';
 import InstantLeakAlerts from './pages/InstantLeakAlerts';
 import BreachRadarPage from './pages/BreachRadarPage';
 
+// ── Demo Mode (public — no auth required) ──────────────────────────────────
+import DemoLayout from './components/demo/DemoLayout';
+import DemoDashboard from './components/demo/DemoDashboard';
+import DemoDigitalRiskScore from './pages/demo/DemoDigitalRiskScore';
+import DemoDriveCleanup from './pages/demo/DemoDriveCleanup';
+import DemoEmailManager from './pages/demo/DemoEmailManager';
+import DemoBreachRadarPage from './pages/demo/DemoBreachRadarPage';
+import DemoDriveClassifier from './pages/demo/DemoDriveClassifier';
+import DemoWebsiteTracker from './pages/demo/DemoWebsiteTracker';
+import DemoEmailClassificationPage from './pages/demo/DemoEmailClassificationPage';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
@@ -280,7 +291,22 @@ function App() {
 
           {/* Feature 5 — Privacy & Security Radar */}
           <Route path="/breach-radar" element={<ProtectedRoute><BreachRadarPage /></ProtectedRoute>} />
-          
+
+          {/* ── Demo Mode — public, no auth required ──────────────────── */}
+          {/* /demo renders DemoDashboard (has its own DemoHeader) */}
+          <Route path="/demo" element={<DemoDashboard />} />
+
+          {/* All /demo/* sub-pages share DemoLayout (DemoHeader + Outlet) */}
+          <Route path="/demo" element={<DemoLayout />}>
+            <Route path="digital-risk-score"    element={<DemoDigitalRiskScore />} />
+            <Route path="drive-cleanup"         element={<DemoDriveCleanup />} />
+            <Route path="email-manager"         element={<DemoEmailManager />} />
+            <Route path="breach-radar"          element={<DemoBreachRadarPage />} />
+            <Route path="drive-classifier"      element={<DemoDriveClassifier />} />
+            <Route path="website-tracker"       element={<DemoWebsiteTracker />} />
+            <Route path="email-classification"  element={<DemoEmailClassificationPage />} />
+          </Route>
+
           {/* Catch all route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
