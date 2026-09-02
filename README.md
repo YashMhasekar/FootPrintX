@@ -1,5 +1,7 @@
 # FootPrintX
 
+🚀 **Live Demo:** [https://footprintx-privacy.netlify.app/](https://footprintx-privacy.netlify.app/)
+
 ### AI-Powered Digital Hygiene & Privacy Management Platform
 
 
